@@ -1,0 +1,55 @@
+<html>
+<head>
+    <title>BackBoneJS First Example</title>
+    <script src="js/libs/jquery-1.12.4.min.js"></script>
+    <script src="js/libs/underscore-min.js"></script>
+    <script src="js/libs/backbone-min.js"></script>
+    <script>
+    // Define a Model
+    // Model is used to represent the Data
+    // Define a Model is Same as Define a Class    
+    var EmployeeModel = Backbone.Model.extend({
+        /* To Specifiy the Default Values of Member Variables */
+        defaults:{
+            id:0,
+            name:'',
+            salary:0.0
+        },
+        // Same like Constructor
+        initialize:function(){
+            console.log(arguments);
+            console.log("Employee Object Created...");
+            // We Bind Events Here
+        },
+        // To Validate the Data of Members
+        validate:function(attrs){
+            if(!attrs.name){
+                return " Every Employee Has Name";
+            }
+            if(attrs.salary<9000){
+                return "Very Low Salary from this Post";
+            }
+        },
+        // The Logic function or Member function
+        print:function(){
+            console.log("Employee Details ::");
+            console.log("Id "+this.get("id"));
+            console.log("Name "+this.get("name"));
+            console.log("Salary "+this.get("salary"));
+        }
+    });  
+    // Define a object
+    var ram = new EmployeeModel({id:1001,name:'Ram',salary:9999}); 
+    console.log(ram); 
+    console.log("Id "+ram.get("id")+" Name "+ram.get("name")+
+              " Salary "+ram.get("salary") ); 
+    ram.set({id:1002,salary:15000});
+        //ram.set("salary",222222);
+    /*console.log("Updated Id "+ram.get("id")+" Name "+ram.get("name")+
+              " Salary "+ram.get("salary") );*/ 
+    ram.print();  // when u call it
+        ram.isValid();  // validate function will be called 
+    console.log("Validation Error ", ram.validationError);    
+    </script>
+</head>
+</html>

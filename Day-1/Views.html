@@ -1,0 +1,60 @@
+<html>
+<head>
+    <title>BackBoneJS Static View Example</title>
+    <script src="js/libs/jquery-1.12.4.min.js"></script>
+    <script src="js/libs/underscore-min.js"></script>
+    <script src="js/libs/backbone-min.js"></script>
+    
+    </head>
+    <body>
+    <div id="div1">
+        </div>       
+        
+    <script>
+        // Basic View 
+        // Create View
+        var ItemView = Backbone.View.extend();
+        // Object of a View
+        var mobile = new ItemView();
+        // Print View DOM Element and By Default it create a Div
+        console.log("Mobile ",mobile.el);
+        console.log("Mobile :: ",mobile.$el);
+        
+        var ProductView =  Backbone.View.extend({
+            // render the output on screen
+            // el or $el is used for DOM things
+            render:function(){
+                this.$el.html("<h1>Welcome in BackBone View</h1>");
+                return this;
+            }
+        });
+        var led = new ProductView({el:"#div1"});
+        led.render();
+        
+        // Using View with Model
+        var EmployeeModel = Backbone.Model.extend({
+            defaults:{
+                id:0,
+                name:'',
+                salary:0,
+                companyName:'ABC Corp.'
+            }
+        });
+        var ram = new EmployeeModel({
+           id:1001,name:'Ram',salary:9999 
+        });
+        var EmployeeView = Backbone.View.extend({
+            initialize:function(){
+                this.render();
+            },
+            render:function(){
+                this.$el.html("<h1>Id "+this.model.get("id")
+                              +" Name "+this.model.get("name")+" Salary "+
+                             this.model.get("salary")+"</h1>");
+            }
+        });
+        var ramView = new EmployeeView({el:"#div1",model:ram});
+        //ramView.render();
+    </script>    
+    </body>
+</html>    

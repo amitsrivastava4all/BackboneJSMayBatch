@@ -1,0 +1,93 @@
+<html>
+<head>
+    <title>BackBoneJS First Example</title>
+    <script src="js/libs/jquery-1.12.4.min.js"></script>
+    <script src="js/libs/underscore-min.js"></script>
+    <script src="js/libs/backbone-min.js"></script>
+    <script>
+        
+        var EmployeeModel = Backbone.Model.extend({
+            urlRoot:"employee.json"
+        });
+        var ram = new EmployeeModel();
+        ram.fetch({
+            success:function(data){
+                console.log("Employee Model Success ",data);
+            },
+            error:function(err){
+                console.log("Employee Model Error ",err);
+            }
+            
+        })
+        
+        
+        // 1st Create model
+        var CustomerModel = Backbone.Model.extend();
+        
+        // Collection is Like an Array of Objects
+        var CustomerCollection = Backbone.Collection.extend({
+           model:CustomerModel, // Attach Model in Collection ,
+            url:"customer.json" // Server Side URL 
+        });
+        
+        
+        var customerList = new CustomerCollection();
+        customerList.fetch({
+            success:function(data){
+                console.log("Getting Data From Server ",data);
+            },
+            error:function(error){
+                console.log("Can't Fetch Data From Server ",error);
+            }
+        });
+        
+        
+        
+        // Object Creation (Model)
+        var tom = new CustomerModel({id:1001,name:'Tom'});
+        var mike = new CustomerModel({id:1002,name:'Mike'});
+        
+        // Create Object of Collection
+        var customerCollection = new CustomerCollection();
+        customerCollection.add(tom);
+        customerCollection.add(mike);
+        console.log("Size is ",customerCollection.length);
+        
+        // Get the Elements from the Collection
+        console.log("At ",customerCollection.at(0).toJSON());
+        console.log("At ",customerCollection.at(0).get("name"));
+        
+        // Remove
+       // customerCollection.remove(customerCollection.at(0));
+       // console.log("After Remove ",customerCollection.length);
+        
+        // Attach Event for Add or Remove
+        customerCollection.on("add",function(){
+            console.log("record added...");
+        });
+        var tim = new CustomerModel({id:1003,name:'Tim'});
+        customerCollection.add(tim);
+        
+        console.log("Size is ",customerCollection.length);
+        // LIFO
+        console.log(customerCollection.at(customerCollection.length-1));
+        //delete tom.remove("name");
+        console.log("Delete ",tom.get("name"));
+        
+        // Traverse Way
+        customerCollection.forEach(function(object){
+            console.log("For Each Demo "+object.get("id")
+                       +" "+object.get("name"));
+        });
+        
+        // Filter or Search
+        var subArray = customerCollection.filter(function(object){
+            return object.id>1002;
+        });
+        console.log("After Filter ",subArray);
+        
+        // 1. Get the Data From the Server in Collection
+        // 2. How to Filter the Data in Collection
+        // 3. How to Traverse the Data in Collection
+        
+    </script>    
