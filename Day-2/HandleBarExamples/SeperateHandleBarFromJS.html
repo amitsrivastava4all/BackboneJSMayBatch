@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <title>Sep HandleBar From JS</title>
+        <script src="js/libs/handlebars-v4.0.5.js"></script>
+    </head>
+    <body>
+        <div id="div1"></div>
+        <script id="mytemplate" type="text/x-handlebars-template">
+        
+        {{!Only Include HandleBar Template Things (HTML and Expression)}}
+        
+        Your Name is {{name}} and Age is {{age}}
+        
+        <h1>Showing My Tasks::</h1>
+        <ul>
+        {{#each tasks}}
+        <li>Id {{id}} &nbsp; {{name}}</li>
+        {{/each}}
+        </ul>
+        {{#if image}}
+        <img src="{{image}}">
+        {{/if}}
+        
+        <br>
+        Another Way to Access Object
+        {{#if anotherobject.image}}
+        <img src ="{{anotherobject.image}}">
+        {{/if}}
+        
+        </script>
+        
+        <script type="text/javascript">
+        /*
+        This Contains JS Code used to pass Values to Handle bar templates
+        */
+        // Step -1 Get the Template     
+        var templateInfo = document.getElementById("mytemplate").innerHTML;
+        // Step -2 Compile the Template
+        var template = Handlebars.compile(templateInfo);
+        // Step -3 Filling up the Expressions
+            
+        var object = {
+            name:'Ram',
+            age:21,
+            tasks:[
+                {id:1001,name:'Watching IPL'},
+                {id:1002,name:'Watching Movie'}
+            ],
+            anotherobject:{
+                image:"http://blog.teamtreehouse.com/wp-content/uploads/2011/03/handlebars.png"
+            },
+            image:"http://blog.teamtreehouse.com/wp-content/uploads/2011/03/handlebars.png"
+        };    
+        var data =  template(object);
+        // Step -4 Final Value willbe put in Div
+        document.getElementById("div1").innerHTML=data;    
+        </script>
+    </body>     
+</html>

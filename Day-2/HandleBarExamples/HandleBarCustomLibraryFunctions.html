@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <title>Sep HandleBar From JS</title>
+        <script src="js/libs/handlebars-v4.0.5.js"></script>
+    </head>
+<body>
+    <div id="div1"></div>
+    <script id="mytemplate" type="text/x-handlebars-template">
+    Welcome {{user}}
+    {{makemylink "Yahoo" "http://www.yahoo.com"}}
+    
+    {{showimage "abcd.jpg"}}
+    
+    
+    </script>
+    
+    
+    <script type="text/javascript">
+        var templateId = document.getElementById("mytemplate").innerHTML;
+        // Define Custom Helper 
+        Handlebars.registerHelper("makemylink",function(text,url){
+            text = Handlebars.Utils.escapeExpression(text);
+            url = Handlebars.Utils.escapeExpression(url);
+            var theLink = "<a href='"+url+"'>"+text+"</a>";
+            return new Handlebars.SafeString(theLink);
+        });
+        
+        Handlebars.registerHelper("showimage",function(url){
+            var theLink;
+            url = Handlebars.Utils.escapeExpression(url);
+            if(url==="xyz.jpg"){
+            theLink= "<img src='http://blog.teamtreehouse.com/wp-content/uploads/2011/03/handlebars.png'>";
+            }
+            else{
+                theLink="<img src='http://www.ora00600.com/wordpress/wp-content/uploads/2013/04/file-not-found.jpg'>";
+            }
+            return new Handlebars.SafeString(theLink);
+        });
+            var template = Handlebars.compile(templateId);
+            var data = template({user:'Ram'});
+            document.getElementById("div1").innerHTML = data;
+            
+        
+    
+    </script>
+</body>   
+</html> 

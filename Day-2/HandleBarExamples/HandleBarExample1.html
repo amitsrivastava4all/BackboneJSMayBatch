@@ -1,0 +1,17 @@
+<html>
+<head>
+    <title>handlebar example1</title>
+    <script src="js/libs/handlebars-v4.0.5.js"></script>
+</head>
+<body>
+    <div id="div1"></div>
+        <script>
+        var info = "<p> My Name is {{name}} and I like the {{programming}}";
+        var template = Handlebars.compile(info);
+        var data = template({name:"Amit Srivastava",programming:'BackBoneJS'});
+        document.getElementById("div1").innerHTML=data;    
+            
+        </script>
+    
+</body>
+</html>

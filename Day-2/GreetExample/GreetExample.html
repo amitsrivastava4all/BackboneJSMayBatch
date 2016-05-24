@@ -1,0 +1,35 @@
+<html>
+<head>
+    <title>Greet Example</title>
+    <script src="js/libs/handlebars-v4.0.5.js"></script>
+    <script src="js/libs/jquery-1.12.4.min.js"></script>
+    <script src="js/libs/underscore-min.js"></script>
+    <script src="js/libs/backbone-min.js"></script>
+      <script src="js/custom/app.js"></script>
+       <script src="js/custom/model.js"></script>
+   
+</head>
+<body>
+    <script id="greetTemplate" type="text/x-handlebars-template">
+    <div>
+        <table>
+            <tr>
+                <td><label for="firstName">FirstName</label></td>
+                <td><input type="text" id="firstName" placeholder="Type FirstName"></td>
+            </tr>
+            <tr>
+                <td><label for="LastName">LastName</label></td>
+                <td><input type="text" id="LastName" placeholder="Type LastName"></td>
+            </tr>
+            <tr>
+                <td colspan="2"><button id="greet">Greet</button></td>
+            </tr>
+        </table>
+        <div>
+            Welcome {{fullName}}
+        </div>
+    </div>
+    </script>
+      <script src="js/custom/view.js"></script>  
+</body>
+</html>
