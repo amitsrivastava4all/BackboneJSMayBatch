@@ -1,0 +1,26 @@
+[
+    {
+        "name":"BERETTA M9",
+        "price":2000,
+        "quantity":10,
+        "discount":10,
+        "desc":"BERETTA M99MM",
+        "url":"/images/BERETTA-M9.jpg"
+    },
+    {
+        "name":"FN-X9",
+        "price":12000,
+        "quantity":20,
+        "discount":20,
+        "desc":"FN-X9 9MM",
+        "url":"/images/fn-x9-9mm.jpg"
+    },
+    {
+        "name":"WALTHER P389",
+        "price":20000,
+        "quantity":5,
+        "discount":10,
+        "desc":"WALTHER P389 99M",
+        "url":"/images/WALTHERP38.jpg"
+    }
+]
