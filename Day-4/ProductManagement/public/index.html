@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product List</title>
+    <script src="jquery-2.1.4.js"></script>
+    <script src="handlebars-v4.0.5.js"></script>
+    <script src="underscore.js"></script>
+    <script src="backbone.js"></script>
+
+    <script type="text/x-handlebars-template" id="productTemplate">
+
+        <span>{{name}} - [@{{price}}]</span>
+        <span> --- </span>
+        <label for="">Units</label>
+        <input type="text" name="" id="txtUnits" value="{{units}}">
+        <input type="button" value="Update" id="btnUpdate">
+        <span> {{value}} </span>
+        <input type="button" value="Remove" id="btnRemove">
+    </script>
+
+    <script type="text/x-handlebars-template" id="productListTemplate">
+
+   </div>
+   <hr>
+    </script>
+    <script>
+        // Update is On One Model , so Update method is in Model
+       var Product = Backbone.Model.extend({
+           defaults : {
+               name : '',
+               units : 0,
+               price : 0,
+               value : 0
+           },
+           update : function(){
+               this.save('value', this.get('price') * this.get('units'));
+           }
+
+       });
+
+        // This is the View for Model
+        var ProductView = Backbone.View.extend({
+            tagName : 'li',
+            templateId : '#productTemplate',
+            events : {
+                "click #btnUpdate" : "updateProduct",
+                "click #btnRemove" : "removeProduct"
+            },
+            removeProduct : function(){
+              this.model.destroy();
+            },
+            updateProduct : function(){
+                var units = parseInt(this.$("#txtUnits").val(),10);
+                this.model.set('units', units);
+                this.model.update();
+            },
+            initialize : function(){
+                _.bindAll(this, 'render', 'remove');
+                this.model.on('change', this.render);
+                this.model.on('destroy', this.remove);
+            },
+            remove : function(){
+                this.$el.remove();
+            },
+            render : function(){
+                if (!this.template){
+                    this.template = Handlebars.compile($(this.templateId).html());
+                }
+                this.$el.html(this.template(this.model.toJSON()));
+                return this;
+            }
+        });
+
+
+
+        // Addition of Many Products (Many - Collection)    
+        var ProductList = Backbone.Collection.extend({
+            model : Product,
+            url : 'products.json',
+            getValue : function(){
+                var totalValue = this.reduce(function(result, product){
+                    return result + product.get('value');
+                }, 0);
+                return totalValue;
+            }
+        });
+        
+        
+        // This is the View For Collection
+        var ProductListView = Backbone.View.extend({
+            el : "div.content",
+            events : {
+                "click #btnAdd" : 'addNewProduct'
+            },
+            addNewProduct : function(){
+                var name = this.$("#txtName").val(),
+                    price = parseInt(this.$("#txtPrice").val(),10);
+                this.collection.create({
+                    name : name,
+                    price : price
+                });
+            },
+            onNewProduct : function(newProduct){
+                var newProductView = new ProductView({model : newProduct});
+                newProductView.render().$el.appendTo(this.$("#olProductList"));
+            },
+            initialize : function(){
+                _.bindAll(this, "onNewProduct", "render");
+                this.collection.on('add', this.onNewProduct);
+                this.collection.on('all', this.render);
+            },
+            render : function(){
+                this.$("#listCount").html(this.collection.length);
+                this.$("#listValue").html(this.collection.getValue());
+            }
+        });
+
+       
+
+
+        $(function(){
+            window.list = new ProductList();
+            var view = new ProductListView({collection : list});
+            list.fetch();
+        });
+    </script>
+</head>
+<body>
+    <div class="content">
+        <h1>Product List</h1>
+        <hr>
+        <label for="">Name :</label>
+        <input type="text" name="" id="txtName">
+        <label for="">Price :</label>
+        <input type="text" name="" id="txtPrice">
+        <input type="button" value="Add" id="btnAdd">
+
+        <ol id="olProductList">
+
+        </ol>
+        <div>
+            <span>Product Count :</span> <span class="count" id="listCount">{{count}}</span>
+            <br>
+            <span>Total Product Value :</span> <span class="count" id="listValue">{{listValue}}</span>
+        </div>
+
+</body>
+</html>

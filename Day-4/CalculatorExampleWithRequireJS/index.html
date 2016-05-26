@@ -1,0 +1,35 @@
+<html>
+<head>
+    <title>CalculatorExample</title>
+    <!--<script src="js/libs/handlebars-v4.0.5.js"></script>
+    <script src="js/libs/jquery-1.12.4.min.js"></script>
+    <script src="js/libs/underscore-min.js"></script>
+    <script src="js/libs/backbone-min.js"></script>-->
+    <style>
+        h1{
+            color: red;
+        }
+    </style>
+    <script src="js/libs/require.js" data-main="js/main.js"></script>
+</head>
+<body>
+    <h1>Calculator Example With RequireJS</h1>
+    <!-- All the JavaScripts r on Global Name Space -->
+    <!-- The Problem is 
+    1. Loading time is more  
+    a) Library JS Files
+    b) Custom JS Files
+    And all load in Synch Way -->
+    <!-- SO if Include the Requrie JS It Will
+    a) Modularized the Code , so it means every JS
+    is in Module
+    b) Add the Dependency B/W the Modules.
+    c) And Config all the JS Files in a Single File
+    d) And Files are loaded in Asynch Way
+    -->
+    
+    <!--<script src="js/custom/app.js"></script>
+    <script src="js/custom/model/calcmodel.js"></script>
+    <script src="js/custom/views/calcview.js"></script>-->
+</body>
+</html>
