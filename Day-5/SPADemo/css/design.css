@@ -1,0 +1,11 @@
+nav>ul>li{
+    display:inline;
+    color: blue;
+    padding-right: 20px;
+}
+li{
+    cursor: pointer;
+}
+footer{
+    margin-top: 200px;
+}

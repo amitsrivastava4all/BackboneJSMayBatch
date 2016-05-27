@@ -1,0 +1,12 @@
+{
+  "generator-backbone": {
+    "appPath": "app",
+    "appName": "Myapp",
+    "testFramework": "jasmine",
+    "templateFramework": "handlebars",
+    "sassBootstrap": false,
+    "coffee": false,
+    "includeRequireJS": false
+  },
+  "generator-jasmine": {}
+}
